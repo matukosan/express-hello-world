@@ -6,4 +6,5 @@ This is a hello-world repo to showcase express running inside a Docker container
 npm install
 docker-compose -f docker-compose.yml build
 docker-compose -f docker-compose.yml up -d node
+curl api.lvh.me
 ```
