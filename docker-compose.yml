@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  nginx:
+    image: jwilder/nginx-proxy
+    container_name: nginx
+    ports: ["80:80"]
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      DEFAULT_HOST: fallback.lvh.me
+  node:
+    image: "node:development"
+    container_name: node
+    network_mode: "host"
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      target: development
+    volumes:
+      - ./:/app:cached
+    environment:
+      - VIRTUAL_HOST=api.lvh.me
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=api.lvh.me
+    depends_on:
+      - nginx
