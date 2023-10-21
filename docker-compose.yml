@@ -20,7 +20,7 @@ services:
       - ./:/app:cached
     environment:
       - VIRTUAL_HOST=api.lvh.me
-      - VIRTUAL_PORT=3000
+      - VIRTUAL_PORT=4000
       - LETSENCRYPT_HOST=api.lvh.me
     depends_on:
       - nginx

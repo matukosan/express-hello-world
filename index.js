@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
-const port = 4000
+const port = 8080
+const host = '0.0.0.0'
 
 app.get('/', (req, res) => {
   console.log('Hello World!', new Date());
@@ -10,6 +11,6 @@ app.get('/', (req, res) => {
   })
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+app.listen(port, host, () => {
+  console.log(`Example app listening on ${host}:${port}`)
 })

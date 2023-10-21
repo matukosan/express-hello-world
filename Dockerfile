@@ -1,13 +1,19 @@
-FROM node:16.19.1 as base_image
-SHELL ["/bin/bash", "-c"]
-RUN apt update -y && \
-    apt upgrade -y && \
-    yarn global add @angular/cli@latest -y && \
-    ng config -g cli.packageManager yarn
+FROM node:18
 
-FROM base_image as development
-WORKDIR /app
+# Create app directory
+WORKDIR /usr/src/app
 
-ENTRYPOINT ["node", "index.js"]
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
-EXPOSE 4000
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --omit=dev
+
+# Bundle app source
+COPY . .
+
+EXPOSE 8080
+CMD [ "node", "index.js" ]
